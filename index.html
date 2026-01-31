@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pra você chatinha</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        overflow: hidden;
+      }
+
+      .container {
+        min-height: 100vh;
+        background: linear-gradient(to bottom, #ddd6fe, #e9d5ff, #ddd6fe);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        transition:
+          opacity 0.5s ease-out,
+          transform 0.5s ease-out;
+      }
+
+      .container.fade-out {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+
+      /* Floating Hearts */
+      .floating-heart {
+        position: absolute;
+        color: rgba(192, 132, 252, 0.6);
+        pointer-events: none;
+        animation: floatUp linear forwards;
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100vh) rotate(30deg);
+          opacity: 0;
+        }
+      }
+
+      /* Confetti */
+      .confetti {
+        position: fixed;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 1000;
+      }
+
+      /* Orbs */
+      .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(60px);
+        pointer-events: none;
+      }
+
+      .orb1 {
+        top: 80px;
+        left: 40px;
+        width: 128px;
+        height: 128px;
+        background: rgba(216, 180, 254, 0.3);
+        animation: float1 8s ease-in-out infinite;
+      }
+
+      .orb2 {
+        bottom: 80px;
+        right: 40px;
+        width: 160px;
+        height: 160px;
+        background: rgba(196, 181, 253, 0.3);
+        animation: float2 10s ease-in-out infinite;
+      }
+
+      .orb3 {
+        top: 50%;
+        left: 25%;
+        width: 96px;
+        height: 96px;
+        background: rgba(251, 207, 232, 0.2);
+        animation: float3 6s ease-in-out infinite;
+      }
+
+      @keyframes float1 {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+        50% {
+          transform: translate(10px, -10px) scale(1.2);
+        }
+      }
+
+      @keyframes float2 {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+        50% {
+          transform: translate(-15px, 10px) scale(1.3);
+        }
+      }
+
+      @keyframes float3 {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.2;
+        }
+        50% {
+          transform: scale(1.4);
+          opacity: 0.4;
+        }
+      }
+
+      /* Main Content */
+      .content {
+        text-align: center;
+        z-index: 10;
+        padding: 0 2rem;
+        animation: fadeIn 0.8s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .heart-icon {
+        font-size: 64px;
+        color: #a855f7;
+        margin-bottom: 2rem;
+        animation: pulse 1.5s ease-in-out infinite;
+        filter: drop-shadow(0 10px 20px rgba(168, 85, 247, 0.3));
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.15);
+        }
+      }
+
+      h1 {
+        font-size: 3rem;
+        color: #7c3aed;
+        margin-bottom: 1rem;
+        font-family: Georgia, serif;
+        animation: fadeIn 0.6s ease-out 0.3s backwards;
+      }
+
+      h1 .italic {
+        font-style: italic;
+        font-weight: 300;
+      }
+
+      h1 .bold {
+        font-weight: 500;
+      }
+
+      .subtitle {
+        font-size: 1.125rem;
+        color: rgba(168, 85, 247, 0.8);
+        margin-bottom: 3rem;
+        letter-spacing: 0.05em;
+        animation: fadeIn 0.6s ease-out 0.5s backwards;
+      }
+
+      /* Button */
+      .btn {
+        background: linear-gradient(to right, #c084fc, #8b5cf6);
+        color: white;
+        padding: 1rem 2.5rem;
+        border-radius: 9999px;
+        font-size: 1.125rem;
+        font-weight: 500;
+        border: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        box-shadow: 0 10px 25px rgba(168, 85, 247, 0.5);
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+        animation: fadeIn 0.5s ease-out 0.7s backwards;
+      }
+
+      .btn:hover {
+        transform: scale(1.08) translateY(-3px);
+        box-shadow: 0 20px 40px rgba(168, 85, 247, 0.6);
+      }
+
+      .btn:active {
+        transform: scale(0.92);
+      }
+
+      .btn::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to right,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transform: translateX(-100%);
+        transition: transform 0.7s;
+      }
+
+      .btn:hover::before {
+        transform: translateX(100%);
+      }
+
+      .btn-heart {
+        color: #fbcfe8;
+        transition: transform 0.3s;
+      }
+
+      .btn:hover .btn-heart {
+        animation: shake 0.6s ease-in-out infinite;
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: rotate(0deg) scale(1);
+        }
+        20% {
+          transform: rotate(-15deg) scale(1.2);
+        }
+        40% {
+          transform: rotate(15deg) scale(1.2);
+        }
+        60% {
+          transform: rotate(-15deg) scale(1.2);
+        }
+        80% {
+          transform: rotate(15deg) scale(1.2);
+        }
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2rem;
+        }
+        .heart-icon {
+          font-size: 48px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="container">
+      <!-- Orbs -->
+      <div class="orb orb1"></div>
+      <div class="orb orb2"></div>
+      <div class="orb orb3"></div>
+
+      <!-- Main Content -->
+      <div class="content">
+        <div class="heart-icon">💜</div>
+        <h1>
+          <span class="italic">Pra </span>
+          <span class="bold">Você chatinha</span>
+        </h1>
+        <p class="subtitle">Um presente simples mas especial...</p>
+        <button class="btn" onclick="handleClick()">
+          Clique aqui
+          <span class="btn-heart">💜</span>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Floating Hearts
+      function createFloatingHeart() {
+        const heart = document.createElement("div");
+        heart.className = "floating-heart";
+        heart.innerHTML = "💜";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.fontSize = Math.random() * 20 + 10 + "px";
+        heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+        heart.style.animationDelay = Math.random() * 2 + "s";
+
+        document.getElementById("container").appendChild(heart);
+
+        setTimeout(() => heart.remove(), 7000);
+      }
+
+      setInterval(createFloatingHeart, 800);
+
+      // Confetti Effect
+      function createConfetti() {
+        const colors = [
+          "#a78bfa",
+          "#c084fc",
+          "#e879f9",
+          "#f472b6",
+          "#fb7185",
+          "#fbbf24",
+        ];
+        const confettiCount = 60;
+
+        for (let i = 0; i < confettiCount; i++) {
+          const confetti = document.createElement("div");
+          confetti.className = "confetti";
+
+          const angle = (Math.PI * 2 * i) / confettiCount;
+          const velocity = Math.random() * 4 + 3;
+          const size = Math.random() * 10 + 5;
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          const rotation = Math.random() * 360;
+          const rotationSpeed = Math.random() * 10 - 5;
+
+          confetti.style.width = size + "px";
+          confetti.style.height = size + "px";
+          confetti.style.backgroundColor = color;
+          confetti.style.left = "50%";
+          confetti.style.top = "50%";
+
+          document.body.appendChild(confetti);
+
+          const endX = Math.cos(angle) * velocity * 100;
+          const endY = Math.sin(angle) * velocity * 100 + 200;
+          const endRotation = rotation + rotationSpeed * 360;
+
+          confetti.animate(
+            [
+              {
+                transform: "translate(0, 0) rotate(0deg)",
+                opacity: 1,
+              },
+              {
+                transform: `translate(${endX}px, ${endY}px) rotate(${endRotation}deg)`,
+                opacity: 0,
+              },
+            ],
+            {
+              duration: 2000,
+              easing: "cubic-bezier(0.36, 0, 0.66, -0.56)",
+            },
+          );
+
+          setTimeout(() => confetti.remove(), 2000);
+        }
+      }
+
+      // Button Click Handler
+      function handleClick() {
+        createConfetti();
+
+        const container = document.getElementById("container");
+        container.classList.add("fade-out");
+
+        setTimeout(() => {
+          window.location.href = "amor.html";
+        }, 1800);
+      }
+    </script>
+  </body>
+</html>
