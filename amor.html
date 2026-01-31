@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meu Amor - Susy</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: linear-gradient(to bottom, #ddd6fe, #e9d5ff, #ddd6fe);
+        min-height: 100vh;
+      }
+
+      .container {
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      .floating-heart {
+        position: fixed;
+        color: rgba(192, 132, 252, 0.5);
+        pointer-events: none;
+        z-index: 50;
+        animation: floatUp linear forwards;
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(100vh);
+          opacity: 0;
+        }
+        10%,
+        90% {
+          opacity: 0.7;
+        }
+        100% {
+          transform: translateY(-100vh);
+          opacity: 0;
+        }
+      }
+
+      .orb {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(60px);
+        pointer-events: none;
+        transition: transform 0.1s ease-out;
+      }
+
+      .orb1 {
+        top: 80px;
+        left: 40px;
+        width: 128px;
+        height: 128px;
+        background: rgba(216, 180, 254, 0.2);
+        animation: pulse1 5s ease-in-out infinite;
+      }
+
+      .orb2 {
+        bottom: 80px;
+        right: 40px;
+        width: 160px;
+        height: 160px;
+        background: rgba(196, 181, 253, 0.2);
+        animation: pulse2 6s ease-in-out infinite;
+      }
+
+      .orb3 {
+        top: 33%;
+        right: 80px;
+        width: 112px;
+        height: 112px;
+        background: rgba(251, 207, 232, 0.15);
+        animation: pulse3 7s ease-in-out infinite;
+      }
+
+      .orb4 {
+        bottom: 33%;
+        left: 80px;
+        width: 144px;
+        height: 144px;
+        background: rgba(167, 139, 250, 0.15);
+        animation: pulse4 8s ease-in-out infinite;
+      }
+
+      @keyframes pulse1 {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.2;
+        }
+        50% {
+          transform: scale(1.2);
+          opacity: 0.3;
+        }
+      }
+
+      @keyframes pulse2 {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.2;
+        }
+        50% {
+          transform: scale(1.35);
+          opacity: 0.35;
+        }
+      }
+
+      @keyframes pulse3 {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.15;
+        }
+        50% {
+          transform: scale(1.3);
+          opacity: 0.25;
+        }
+      }
+
+      @keyframes pulse4 {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.15;
+        }
+        50% {
+          transform: scale(1.25);
+          opacity: 0.28;
+        }
+      }
+
+      .spotify-section {
+        width: 100%;
+        padding: 1rem;
+        animation: fadeInDown 0.6s ease-out;
+        transition: transform 0.1s ease-out;
+      }
+
+      .spotify-wrapper {
+        transition: all 0.3s;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .spotify-wrapper:hover {
+        transform: scale(1.02) translateY(-2px);
+        box-shadow: 0 20px 40px rgba(168, 85, 247, 0.5);
+      }
+
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .content {
+        padding: 1.5rem;
+        padding-top: 2rem;
+      }
+
+      .heart-icon {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1rem;
+        font-size: 48px;
+        animation: heartFloat 2.5s ease-in-out infinite;
+        filter: drop-shadow(0 10px 20px rgba(168, 85, 247, 0.4));
+        cursor: pointer;
+      }
+
+      .heart-icon:hover {
+        animation: heartSpin 0.5s ease-out forwards;
+      }
+
+      @keyframes heartFloat {
+        0%,
+        100% {
+          transform: scale(1) rotate(0deg);
+        }
+        25% {
+          transform: scale(1.15) rotate(8deg);
+        }
+        75% {
+          transform: scale(1.15) rotate(-8deg);
+        }
+      }
+
+      @keyframes heartSpin {
+        to {
+          transform: scale(1.3) rotate(360deg);
+        }
+      }
+
+      h1 {
+        font-size: 2rem;
+        text-align: center;
+        color: #7c3aed;
+        margin-bottom: 0.5rem;
+        font-family: Georgia, serif;
+        font-style: italic;
+        animation: fadeIn 0.6s ease-out 0.2s backwards;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: #a855f7;
+        margin-bottom: 2rem;
+        animation: fadeIn 0.6s ease-out 0.3s backwards;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .photo-container {
+        position: relative;
+        max-width: 32rem;
+        margin: 0 auto 2rem;
+        cursor: pointer;
+        animation: fadeInScale 0.5s ease-out 0.4s backwards;
+        transition: all 0.5s ease-out;
+      }
+
+      .photo-container:hover {
+        transform: scale(1.03) translateY(-8px);
+      }
+
+      @keyframes fadeInScale {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .photo-wrapper {
+        position: relative;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 25px 50px rgba(216, 180, 254, 0.4);
+        transition: all 0.5s;
+      }
+
+      .photo-container:hover .photo-wrapper {
+        box-shadow: 0 35px 70px rgba(168, 85, 247, 0.6);
+      }
+
+      .photo-wrapper img {
+        width: 100%;
+        height: 20rem;
+        object-fit: cover;
+        transition: transform 0.7s;
+      }
+
+      .photo-container:hover .photo-wrapper img {
+        transform: scale(1.1);
+      }
+
+      .photo-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(88, 28, 135, 0.3),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.5s;
+      }
+
+      .photo-container:hover .photo-overlay {
+        opacity: 1;
+      }
+
+      .deco-heart {
+        position: absolute;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        transition: transform 0.3s;
+      }
+
+      .deco-heart-1 {
+        top: -8px;
+        right: -8px;
+        font-size: 24px;
+        animation: rotateHeart1 2s ease-in-out infinite;
+      }
+
+      .deco-heart-2 {
+        bottom: -8px;
+        left: -8px;
+        font-size: 20px;
+        animation: rotateHeart2 2.5s ease-in-out infinite 1s;
+      }
+
+      @keyframes rotateHeart1 {
+        0%,
+        100% {
+          transform: rotate(0deg) scale(1);
+        }
+        50% {
+          transform: rotate(10deg) scale(1.15);
+        }
+      }
+
+      @keyframes rotateHeart2 {
+        0%,
+        100% {
+          transform: rotate(0deg) scale(1);
+        }
+        50% {
+          transform: rotate(-10deg) scale(1.15);
+        }
+      }
+
+      .deco-heart:hover {
+        transform: scale(1.5) rotate(360deg);
+      }
+
+      .scroll-indicator {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        font-size: 28px;
+        color: #c084fc;
+        cursor: pointer;
+        animation: bounce 1.5s ease-in-out infinite;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        transition: all 0.3s;
+      }
+
+      .scroll-indicator:hover {
+        transform: scale(1.3);
+        color: #9333ea;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(10px);
+        }
+      }
+
+      /* CONTADOR DE TEMPO */
+      .time-counter {
+        max-width: 32rem;
+        margin: 0 auto 2rem;
+        text-align: center;
+        animation: fadeIn 0.6s ease-out 0.5s backwards;
+      }
+
+      .time-counter-title {
+        color: rgba(124, 58, 237, 0.8);
+        font-size: 0.875rem;
+        margin-bottom: 1rem;
+        font-style: italic;
+      }
+
+      .time-boxes {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .time-box {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        border-radius: 1rem;
+        padding: 1rem 1.5rem;
+        box-shadow: 0 10px 25px rgba(216, 180, 254, 0.3);
+        border: 1px solid rgba(216, 180, 254, 0.5);
+        transition: all 0.3s;
+      }
+
+      .time-box:hover {
+        transform: scale(1.05) translateY(-2px);
+        box-shadow: 0 15px 35px rgba(168, 85, 247, 0.4);
+      }
+
+      .time-number {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #7c3aed;
+      }
+
+      .time-label {
+        font-size: 0.75rem;
+        color: #a855f7;
+        margin-top: 0.25rem;
+      }
+
+      .message-container {
+        max-width: 32rem;
+        margin: 0 auto 2rem;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(10px);
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 25px 50px rgba(216, 180, 254, 0.3);
+        border: 1px solid rgba(216, 180, 254, 0.5);
+        animation: fadeInUp 0.6s ease-out 0.6s backwards;
+        transition: all 0.5s;
+      }
+
+      .message-container:hover {
+        background: rgba(255, 255, 255, 0.75);
+        box-shadow: 0 35px 70px rgba(192, 132, 252, 0.5);
+        transform: translateY(-6px) scale(1.01);
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .message-text {
+        color: rgba(88, 28, 135, 0.9);
+        text-align: center;
+        line-height: 1.6;
+        font-size: 1rem;
+      }
+
+      .footer {
+        text-align: center;
+        color: rgba(192, 132, 252, 0.6);
+        font-size: 0.875rem;
+        padding-bottom: 2rem;
+        animation: fadeIn 0.6s ease-out 0.8s backwards;
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 1.5rem;
+        }
+        .heart-icon {
+          font-size: 36px;
+        }
+        .message-container {
+          padding: 1.5rem;
+        }
+        .time-boxes {
+          gap: 0.5rem;
+        }
+        .time-box {
+          padding: 0.75rem 1rem;
+        }
+        .time-number {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="orb orb1"></div>
+      <div class="orb orb2"></div>
+      <div class="orb orb3"></div>
+      <div class="orb orb4"></div>
+
+      <div class="spotify-section" id="spotifySection">
+        <div class="spotify-wrapper">
+          <iframe
+            src="https://open.spotify.com/embed/track/70irAGrMdoXxKzeG4uiduP"
+            width="100%"
+            height="80"
+            frameborder="0"
+            allow="
+              autoplay;
+              clipboard-write;
+              encrypted-media;
+              fullscreen;
+              picture-in-picture;
+            "
+            loading="lazy"
+            style="border-radius: 12px"
+          ></iframe>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="heart-icon" id="heartIcon">💜</div>
+        <h1 id="title">Minha princesa 💜</h1>
+        <!-- <p class="subtitle" id="subtitle">Para: Susy</p> -->
+
+        <div class="photo-container" id="photoContainer">
+          <div class="photo-wrapper">
+            <img
+              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/697cf4b9a6a663af1482197e/8d901d778_fec0d607-04dc-41e1-96ab-07146c8f01cb.jpeg"
+              alt="Nosso amor"
+            />
+            <div class="photo-overlay"></div>
+            <div class="deco-heart deco-heart-1">💜</div>
+            <div class="deco-heart deco-heart-2">💗</div>
+          </div>
+        </div>
+
+        <div
+          class="scroll-indicator"
+          id="scrollIndicator"
+          onclick="smoothScroll()"
+        >
+          ⌄
+        </div>
+
+        <!-- CONTADOR DE TEMPO -->
+        <div class="time-counter" id="timeCounter">
+          <p class="time-counter-title">Faz</p>
+          <div class="time-boxes">
+            <div class="time-box">
+              <div class="time-number" id="days">00</div>
+              <div class="time-label">dias</div>
+            </div>
+            <div class="time-box">
+              <div class="time-number" id="hours">00</div>
+              <div class="time-label">horas</div>
+            </div>
+            <div class="time-box">
+              <div class="time-number" id="minutes">00</div>
+              <div class="time-label">minutos</div>
+            </div>
+            <div class="time-box">
+              <div class="time-number" id="seconds">00</div>
+              <div class="time-label">segundos</div>
+            </div>
+          </div>
+          <p class="time-counter-title" style="margin-top: 1rem">
+            que mandei mensagem pra doida que mudou meu dia a dia
+          </p>
+        </div>
+
+        <div class="message-container" id="messageContainer">
+          <p class="message-text">
+            Sabe garota, é incrível pensar como a vida é louca né? Em pouco
+            tempo você apareceu e hoje toma conta de cada pensamento meu
+            kkkkkkkk que coisa mais louca, enfim, tô fazendo isso para te dizer
+            algo que para mim tem muita importância e eu sei que para você
+            também deve ter… EU TE AMO! Poxa Susy não consigo descrever em
+            poucas palavras o que eu quero dizer sabe? Mas queria deixar claro
+            isso, garota você é incrível. Deus sabe o quanto eu pedi e peço para
+            que tudo isso dê certo, o quanto eu quero que seja você. Eu olho
+            para você e vejo uma garota incrível, bonita, educada, de família e
+            que ama a Deus também (também tem um pouco de sfd né), tem algo a
+            mais que eu possa querer??? Eu sei que tem desafios e que sua mente
+            e o "pensar demais" é um deles, mas eu queria te dizer e deixar
+            claro o porquê eu estou aqui, não é para ser um momento mas sim para
+            passar todos os momentos com você. Eu sei dos teus medos e eu estou
+            aqui para acalma-los e fechar qualquer ferida que eu sei que não fui
+            eu que abri, porque eu sei que você vale a pena. Eu quero que seja
+            você ao meu lado por hoje e sempre… Ah garota você não tem noção do
+            quanto eu penso em você… enfim… Eu só quero dizer isso sabe? Amo
+            você Minha princesa💜
+          </p>
+        </div>
+
+        <p class="footer">Com todo meu amor 💜</p>
+      </div>
+    </div>
+
+    <script>
+      // ⚠️ MUDE ESTA DATA PARA A DATA QUE VOCÊ MANDOU MENSAGEM PRA ELA!
+      const startDate = new Date("2026-01-08T00:00:00");
+
+      function createFloatingHeart() {
+        const heart = document.createElement("div");
+        heart.className = "floating-heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.fontSize = Math.random() * 16 + 8 + "px";
+        heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+        document.querySelector(".container").appendChild(heart);
+        setTimeout(() => heart.remove(), 7000);
+      }
+
+      setInterval(createFloatingHeart, 1200);
+
+      // CONTADOR DE TEMPO
+      function updateCounter() {
+        const now = new Date();
+        const diff = now - startDate;
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+        );
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById("days").textContent = String(days).padStart(
+          2,
+          "0",
+        );
+        document.getElementById("hours").textContent = String(hours).padStart(
+          2,
+          "0",
+        );
+        document.getElementById("minutes").textContent = String(
+          minutes,
+        ).padStart(2, "0");
+        document.getElementById("seconds").textContent = String(
+          seconds,
+        ).padStart(2, "0");
+      }
+
+      updateCounter();
+      setInterval(updateCounter, 1000);
+
+      // PARALLAX
+      let scrollY = 0;
+      window.addEventListener("scroll", () => {
+        scrollY = window.scrollY;
+        document.querySelector(".orb1").style.transform =
+          `translateY(${scrollY * 0.4}px)`;
+        document.querySelector(".orb2").style.transform =
+          `translateY(${scrollY * -0.3}px)`;
+        document.querySelector(".orb3").style.transform =
+          `translateY(${scrollY * 0.25}px)`;
+        document.querySelector(".orb4").style.transform =
+          `translateY(${scrollY * -0.35}px)`;
+        document.getElementById("spotifySection").style.transform =
+          `translateY(${scrollY * -0.15}px)`;
+        document.getElementById("heartIcon").style.transform =
+          `translateY(${scrollY * -0.08}px)`;
+        document.getElementById("title").style.transform =
+          `translateY(${scrollY * -0.12}px)`;
+        document.getElementById("subtitle").style.transform =
+          `translateY(${scrollY * -0.15}px)`;
+        document.getElementById("photoContainer").style.transform =
+          `translateY(${scrollY * -0.1}px)`;
+        document.getElementById("timeCounter").style.transform =
+          `translateY(${scrollY * -0.06}px)`;
+        document.getElementById("messageContainer").style.transform =
+          `translateY(${scrollY * -0.05}px)`;
+        const opacity = Math.max(0, 1 - scrollY / 300);
+        document.getElementById("scrollIndicator").style.opacity = opacity;
+      });
+
+      function smoothScroll() {
+        window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
+      }
+    </script>
+  </body>
+</html>
